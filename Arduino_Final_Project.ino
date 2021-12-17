@@ -2,6 +2,7 @@
 Servo myservo;
 int pos = 0;
 int angle = 0;
+int value1, value2, value3, value4;
 
 void setup()
 {
@@ -40,6 +41,16 @@ void loop() {
 }
 
 void ultraSonicAll() {
+  value1 = ultraSonic(2, 5);
+  value2 = ultraSonic(10, 8);
+  value3 = ultraSonic(11, 7);
+  value4 = ultraSonic(3, 6);
+  
+  if(value1 <= 10 || value2 <= 10 || value3 <= 10 || value4 <= 10) {
+//    Serial.println("Sound Buzzer");
+    tone(12, 261, 100);
+  }
+  
   Serial.print(ultraSonic(2, 5));
   Serial.print(",");
   Serial.print(ultraSonic(10, 8));
@@ -50,7 +61,6 @@ void ultraSonicAll() {
   Serial.print(",");
   Serial.print(-angle);
   Serial.print(".");
-  Serial.println("");
   //값을 화면에 출력합니다.
 }
 
@@ -64,9 +74,6 @@ int ultraSonic(int trigPin, int echoPin) {
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH,6000);
   int distance  = duration * 17 / 1000;
-  if(distance <= 10) {
-    Serial.println("Sound Buzzer");
-  }
   if(distance >= 40 || distance == 0) {
     distance = 40;
   }
