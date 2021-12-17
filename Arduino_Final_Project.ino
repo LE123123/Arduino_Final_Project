@@ -16,6 +16,8 @@ void setup()
   pinMode(7, INPUT);
   pinMode(8, INPUT);
   //기본 설정을 해 줍니다.
+
+  pinMode(12, OUTPUT);
 }
 
 void loop() {
@@ -48,6 +50,7 @@ void ultraSonicAll() {
   Serial.print(",");
   Serial.print(-angle);
   Serial.print(".");
+  Serial.println("");
   //값을 화면에 출력합니다.
 }
 
@@ -61,9 +64,12 @@ int ultraSonic(int trigPin, int echoPin) {
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH,6000);
   int distance  = duration * 17 / 1000;
+  if(distance <= 10) {
+    Serial.println("Sound Buzzer");
+  }
   if(distance >= 40 || distance == 0) {
     distance = 40;
-}
+  }
   return distance;
  //초음파 센서값을 측정합니다.
 }
